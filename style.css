@@ -12,11 +12,11 @@
 }
 @media (max-width: 768px) {
   .hero {
-    background-size: contain !important;
-    background-repeat: no-repeat !important;
+    height: 70vh !important;
     background-position: center !important;
   }
 }
+
 
 
 
@@ -83,3 +83,4 @@ body {
   filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
 
 }
+
