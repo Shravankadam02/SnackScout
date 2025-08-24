@@ -10,15 +10,6 @@
   height: 100vh;
   background: url('./assets/Image1_Pani-Puri.jpg') no-repeat center center/cover;
 }
-@media (max-width: 768px) {
-  .hero {
-    height: 70vh !important;
-    background-position: center !important;
-  }
-}
-
-
-
 
 .hero::before {
   content: "";
@@ -83,4 +74,5 @@ body {
   filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
 
 }
+
 
