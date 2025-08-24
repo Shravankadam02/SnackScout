@@ -10,6 +10,12 @@
   height: 100vh;
   background: url('./assets/Image1_Pani-Puri.jpg') no-repeat center center/cover;
 }
+@media (max-width: 768px) {
+  .hero {
+    height: 70vh !important;
+    background-position: center !important;
+  }
+}
 
 
 
@@ -77,6 +83,48 @@ body {
 
 }
 
+
+
+
+
+/* Explore Page Css */
+
+
+
+/* Card Hover Effect */
+.explore-card {
+  transition: all 0.3s ease;
+}
+.explore-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Image Zoom on Hover */
+.img-container {
+  overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+}
+.img-container img {
+  transition: transform 0.4s ease;
+}
+.explore-card:hover .img-container img {
+  transform: scale(1.08);
+}
+
+/* Button Glow on Hover */
+.direction-btn {
+  transition: all 0.3s ease;
+}
+.direction-btn:hover {
+  box-shadow: 0 0 12px rgba(13,110,253,0.7);
+  transform: scale(1.03);
+}
+.card-img-top {
+  height: 200px;        /* makes all images same height */
+  object-fit: cover;    /* crops instead of stretching */
+  border-radius: 12px 12px 0 0; /* optional rounded corners */
+}
 
 
 
