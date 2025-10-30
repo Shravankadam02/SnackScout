@@ -10,34 +10,42 @@
 
   <div class="container my-5">
     <h2 class="text-center mb-4">Register Your Stall 🍴</h2>
-    <form class="bg-white p-4 rounded shadow-sm">
-      <div class="mb-3">
-        <label class="form-label">Stall Name</label>
-        <input type="text" class="form-control" placeholder="Enter your stall name">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Owner Name</label>
-        <input type="text" class="form-control" placeholder="Enter owner's name">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Food Type</label>
-        <input type="text" class="form-control" placeholder="e.g. Vada Pav, Dosa, Pani Puri">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Location</label>
-        <input type="text" class="form-control" placeholder="Enter your stall location">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Contact Number</label>
-        <input type="text" class="form-control" placeholder="Enter contact number">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Upload Stall Photo</label>
-        <input type="file" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-warning w-100">Submit</button>
-    </form>
+    <form id="stallForm" class="bg-white p-4 rounded shadow-sm">
+  <div class="mb-3">
+    <label class="form-label">Stall Name</label>
+    <input type="text" class="form-control" id="stallName" placeholder="Enter your stall name" required>
   </div>
+
+  <div class="mb-3">
+    <label class="form-label">Owner Name</label>
+    <input type="text" class="form-control" id="ownerName" placeholder="Enter owner's name" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Food Type</label>
+    <input type="text" class="form-control" id="foodType" placeholder="e.g. Vada Pav, Dosa, Pani Puri" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Location</label>
+    <input type="text" class="form-control" id="location" placeholder="Enter your stall location" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Contact Number</label>
+    <input type="text" class="form-control" id="contact" placeholder="Enter contact number" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Upload Stall Photo</label>
+    <input type="file" class="form-control" id="photo">
+  </div>
+
+  <button type="submit" class="btn btn-warning w-100">Submit</button>
+</form>
+
+  </div>
+<script src="./register.js"></script>
 
 </body>
 </html>
