@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Signup - SnackScout</title>
+
+    <!-- Bootstrap CSS (same as index.html) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Your existing custom style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- keep your header/navbar here like other pages for consistency -->
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Login to SnackScout</h2>
+
+        <form id="loginForm" style="max-width:420px;margin:0 auto;">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input id="email" class="form-control" type="email" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input id="password" class="form-control" type="password" required>
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Login</button>
+            <p class="mt-3 text-center">Don't have an account? <a href="signup.html">Sign up</a></p>
+        </form>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            try {
+                const user = await SnackAuth.signIn({ email, password });
+                alert('Logged in successfully');
+
+                // Redirect based on role (vendor/user)
+                if (user.role === "admin") {
+                    // 🧠 Admin stays on the home page
+                    window.location.href = "index.html";
+                } else if (user.role === "vendor") {
+                    // 🧠 Vendor goes to Register Stall
+                    window.location.href = "register.html";
+                } else {
+                    // 🧠 Normal user/customer goes to Explore
+                    window.location.href = "explore.html";
+                }
+
+            } catch (err) {
+                alert('Login failed: ' + err.message);
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
