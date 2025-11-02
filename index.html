@@ -19,33 +19,35 @@
 
 
 <body>
-<!-- Navbar -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top hybrid-navbar">
-  <div class="container">
-    <a class="navbar-brand fw-bold fs-3" href="#">SnackScout</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-3" href="#">SnackScout</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto text-center">
-        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Explore</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto text-center">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Explore</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
 
-       <div class="d-flex align-items-center">
-        <button class="btn btn-outline-light me-2">Login</button>
-        <button class="btn btn-light text-dark fw-semibold">Sign Up</button>
+        <!-- Auth area (dynamic login/signup or user info) -->
+        <div id="authArea" class="d-flex align-items-center">
+          <a href="./login.html" class="btn btn-outline-light me-2">Login</a>
+          <a href="./signup.html" class="btn btn-light text-dark fw-semibold">Sign Up</a>
+        </div>
+
+
       </div>
-
     </div>
-  </div>
-</nav>
+  </nav>
 
 
-    <div class="herosection">
+  <div class="herosection">
     <!-- Hero Section -->
     <section class="hero bg-dark text-light text-center d-flex align-items-center" style="
           height: 100vh;
@@ -106,20 +108,21 @@
     </section>
     <!-- Vendor Invitation Section -->
     <section class="vendor-section">
-  <div class="vendor-content">
-    <div class="vendor-text">
-      <h2>Own a Food Stall or Cart?</h2>
-      <p>
-        Join <strong>SnackScout</strong> and make your street food famous! 
-        List your stall so nearby food lovers can easily find and enjoy your dishes.
-      </p>
-      <a href="./register.html" class="register-btn">Register Your Stall</a>
-    </div>
-    <div class="vendor-image">
-      <img src="./assets/1000109497-removebg-preview.png" alt="Street Vendor">
-    </div>
-  </div>
-</section>
+      <div class="vendor-content">
+        <div class="vendor-text">
+          <h2>Own a Food Stall or Cart?</h2>
+          <p>
+            Join <strong>SnackScout</strong> and make your street food famous!
+            List your stall so nearby food lovers can easily find and enjoy your dishes.
+          </p>
+          <a href="#" id="registerStallBtn" class="register-btn">Register Your Stall</a>
+
+        </div>
+        <div class="vendor-image">
+          <img src="./assets/1000109497-removebg-preview.png" alt="Street Vendor">
+        </div>
+      </div>
+    </section>
 
     <footer>
       <div class="container">
@@ -207,15 +210,73 @@
         </footer>
       </div>
     </footer>
+    <script>
+      window.addEventListener('scroll', function () {
+        const navbar = document.querySelector('.hybrid-navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    </script>
+<script src="auth.js"></script>
+
 <script>
-  window.addEventListener('scroll', function() {
-    const navbar = document.querySelector('.hybrid-navbar');
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
+(function () {
+  function renderAuthArea() {
+    const el = document.getElementById('authArea');
+    if (!el || !window.SnackAuth) return;
+
+    const user = SnackAuth.getCurrentUser();
+
+    if (user) {
+      // If logged in
+      el.innerHTML = `
+        <span class="me-2 text-light">Hi, <strong>${user.displayName || user.email}</strong></span>
+        <button id="logoutBtn" class="btn btn-outline-light btn-sm">Logout</button>
+      `;
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await SnackAuth.signOut();
+        window.location.reload();
+      });
     } else {
-      navbar.classList.remove('scrolled');
+      // If not logged in — your original buttons
+      el.innerHTML = `
+        <a href="./login.html" class="btn btn-outline-light me-2">Login</a>
+        <a href="./signup.html" class="btn btn-light text-dark fw-semibold">Sign Up</a>
+      `;
     }
+  }
+
+  renderAuthArea();
+  document.addEventListener('auth-changed', renderAuthArea);
+})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('registerStallBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const user = SnackAuth.getCurrentUser();
+
+    if (!user) {
+      alert('Please login first to register your stall.');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    if (user.role !== 'vendor') {
+      alert('Only vendors can register stalls.');
+      return;
+    }
+
+    // ✅ Vendor is logged in → allow
+    window.location.href = 'register.html';
   });
+});
 </script>
 
 </body>
