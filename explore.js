@@ -1,64 +1,133 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const vendorStalls = document.getElementById('vendorStalls');
-  const stalls = JSON.parse(localStorage.getItem('stalls')) || [];
+console.log("✅ explore.js loaded");
 
-  if (!stalls.length) {
-    vendorStalls.innerHTML = `
-      <p class="text-center text-muted">No vendor stalls added yet.</p>
-    `;
-    return;
+// 🧭 Default Stalls (Static)
+const defaultStalls = [
+  {
+    name: "Zatka Panipuri",
+    foodType: "Street Snacks • Fast Food",
+    location: "Panchavati, Nashik",
+    contact: "—",
+    image: "./assets/zatkapanipuri.jpg",
+    mapsLink: "https://maps.app.goo.gl/JDo6YNduGAtKt1A77"
+  },
+  {
+    name: "Om Bajrang Misal",
+    foodType: "Snacks • Spicy Bites",
+    location: "Dwarka, Nashik",
+    contact: "—",
+    image: "./assets/ombajrangmisal.jpg",
+    mapsLink: "https://maps.app.goo.gl/RAvYjpbC7Le1u8Z2A"
+  },
+  {
+    name: "Samarth Juice Centre",
+    foodType: "Drinks & Refreshments",
+    location: "Nashik Road",
+    contact: "—",
+    image: "./assets/samarthjuice.jpg",
+    mapsLink: "https://maps.app.goo.gl/nqWVviVzunhGq9S78"
+  },
+  {
+    name: "Bhole's Rock and Rolls",
+    foodType: "Snacks • Rolls",
+    location: "College Road",
+    contact: "—",
+    image: "./assets/rock&roll.jpg",
+    mapsLink: "https://maps.app.goo.gl/u9BewnkUGcmuJpudA"
+  },
+  {
+    name: "Mauli Kadhi Samosa",
+    foodType: "Sweet • Spicy",
+    location: "Gangapur Road",
+    contact: "—",
+    image: "./assets/maulisamosa.jpg",
+    mapsLink: "https://maps.app.goo.gl/wbEY5YWFcoPojZgW6"
+  },
+  {
+    name: "Sai Chinese Corner",
+    foodType: "Chinese • Snacks",
+    location: "Nashik Road",
+    contact: "—",
+    image: "./assets/saichines.jpg",
+    mapsLink: "https://maps.app.goo.gl/CNgREbie6Mdpsbys8"
   }
+];
 
-  // Function to render all cards
-  function renderStalls() {
-    vendorStalls.innerHTML = '';
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("vendorStalls");
+  const user = SnackAuth.getCurrentUser();
+  const isAdmin = user && user.role === "admin";
+
+  // Load vendor stalls
+  const vendorStalls = JSON.parse(localStorage.getItem("snackscout_stalls_v1")) || [];
+
+  // Merge both
+  let allStalls = [...defaultStalls, ...vendorStalls];
+  renderStalls(allStalls);
+
+  // 🧩 Search Functionality
+  document.getElementById("searchForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+    const filtered = allStalls.filter((s) =>
+      (s.name || "").toLowerCase().includes(query) ||
+      (s.foodType || "").toLowerCase().includes(query) ||
+      (s.location || "").toLowerCase().includes(query)
+    );
+
+    renderStalls(filtered);
+  });
+
+  // 🧱 Render Function
+  function renderStalls(stalls) {
+    container.innerHTML = "";
+
+    if (stalls.length === 0) {
+      container.innerHTML = `<p class="text-center text-muted">No stalls found.</p>`;
+      return;
+    }
 
     stalls.forEach((stall, index) => {
-      const col = document.createElement('div');
-      col.className = 'col-md-4';
-      col.innerHTML = `
-        <div class="card explore-card shadow border-0 rounded-4 h-100">
-          <div class="img-container">
-            <img src="${stall.photo || './assets/default-stall.jpg'}" 
-                 alt="${stall.name}" class="card-img-top">
-          </div>
-          <div class="card-body">
-            <h5 class="fw-bold">${stall.name}</h5>
-            <p class="text-muted mb-2">${stall.type || 'Street Snacks • Local Food'}</p>
-            <div class="d-flex justify-content-between mb-3">
-              <span class="badge bg-success">${(4 + Math.random() * 0.5).toFixed(1)} ★</span>
-              <span class="text-muted">₹${stall.avgPrice || 80} for two</span>
-              <span class="text-muted">${(1 + Math.random() * 3).toFixed(1)} km</span>
-            </div>
-            <p class="mb-1"><strong>Owner:</strong> ${stall.owner}</p>
-            <p class="mb-1"><strong>Contact:</strong> ${stall.contact}</p>
-            <a href="https://www.google.com/maps/search/${encodeURIComponent(stall.location)}"
-               target="_blank"
-               class="btn btn-primary w-100 rounded-pill direction-btn mb-2">Get Directions</a>
+      const deleteBtn =
+        isAdmin && vendorStalls.includes(stall)
+          ? `<button class="btn btn-danger btn-sm mt-2 delete-btn" data-index="${index}">Delete</button>`
+          : "";
 
-            <!-- Delete Button -->
-            <button class="btn btn-outline-danger w-100 rounded-pill delete-btn" data-index="${index}">
-              <i class="bi bi-trash"></i> Delete Stall
-            </button>
+      const mapButton = stall.mapsLink
+        ? `<a href="${stall.mapsLink}" target="_blank" class="btn btn-primary w-100 rounded-pill">Get Directions</a>`
+        : `<button class="btn btn-secondary w-100 rounded-pill" disabled>No Map Link</button>`;
+
+      const card = `
+        <div class="col-md-4">
+          <div class="card explore-card shadow border-0 rounded-4">
+            <div class="img-container">
+              <img src="${stall.image || './assets/default.jpg'}" alt="${stall.name}" class="card-img-top">
+            </div>
+            <div class="card-body">
+              <h5 class="fw-bold">${stall.name}</h5>
+              <p class="text-muted mb-2">${stall.foodType}</p>
+              <div class="mb-2"><strong>Location:</strong> ${stall.location}</div>
+              <div class="mb-2"><strong>Contact:</strong> ${stall.contact}</div>
+              ${mapButton}
+              ${deleteBtn}
+            </div>
           </div>
         </div>
       `;
-      vendorStalls.appendChild(col);
+      container.innerHTML += card;
     });
 
-    // Attach delete handlers
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const index = e.target.closest('button').dataset.index;
-        const confirmDelete = confirm('🗑️ Are you sure you want to delete this stall?');
-        if (confirmDelete) {
-          stalls.splice(index, 1); // remove from array
-          localStorage.setItem('stalls', JSON.stringify(stalls)); // save updated list
-          renderStalls(); // refresh UI
+    // Admin Delete
+    document.querySelectorAll(".delete-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const index = btn.getAttribute("data-index");
+        if (confirm("Are you sure you want to delete this stall?")) {
+          vendorStalls.splice(index - defaultStalls.length, 1);
+          localStorage.setItem("snackscout_stalls_v1", JSON.stringify(vendorStalls));
+          alert("✅ Stall deleted successfully!");
+          window.location.reload();
         }
       });
     });
   }
-
-  renderStalls();
 });
