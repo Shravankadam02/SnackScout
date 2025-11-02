@@ -5,184 +5,77 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore Snacks - SnackScout</title>
-  <!-- Your Custom CSS -->
+
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Bootstrap 5 (Clean Link, No Integrity Hash Issue) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Bootstrap JS (with Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 
-<body>
-  <div class="bg-light">
+<body class="bg-light">
 
-    <!-- Navbar -->
+  <!-- Navbar -->
+  <nav class="navbar bg-white shadow-sm py-3 sticky-top">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand fw-bold fs-3 text-dark" href="index.html">SnackScout</a>
 
-    <nav class="navbar bg-white shadow-sm py-3 sticky-top">
-      <div class="container d-flex justify-content-between align-items-center">
-        <!-- Brand -->
-        <a class="navbar-brand fw-bold fs-3 text-dark" href="#">SnackScout</a>
-        <!-- Search Bar -->
-        <form class="d-flex flex-grow-1 mx-3" role="search">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="bi bi-geo-alt text-danger"></i>
-            </span>
-            <input class="form-control border-start-0 border-end-0" type="search"
-              placeholder="Search for snacks, stalls or locations" aria-label="Search">
-            <button class="btn btn-warning px-4" type="submit">Search</button>
-          </div>
-        </form>
-        <!-- Login/Signup -->
-        <div class="d-none d-md-block">
-          <a href="#" class="btn btn-outline-dark me-2">Log in</a>
-          <a href="#" class="btn btn-dark">Sign up</a>
+      <!-- 🔍 Search bar -->
+      <form id="searchForm" class="d-flex flex-grow-1 mx-3" role="search">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-geo-alt text-danger"></i>
+          </span>
+          <input id="searchInput" class="form-control border-start-0 border-end-0" type="search"
+            placeholder="Search for snacks, stalls or locations" aria-label="Search" />
+          <button class="btn btn-warning px-4" type="submit">Search</button>
         </div>
+      </form>
 
-      </div>
-    </nav>
-
-
-    <!-- Explore Section -->
-    <div class="container my-5">
-      <div class="row g-4">
-
-        <!-- Card 1 -->
-        <div class="col-md-4">
-          <div class="card explore-card shadow border-0 rounded-4">
-            <div class="img-container">
-              <img src="./assets/zatkapanipuri.jpg" alt="Pani Puri Stall" class="card-img-top">
-            </div>
-            <div class="card-body">
-              <h5 class="fw-bold">Zatka Panipuri</h5>
-              <p class="text-muted mb-2">Street Snacks • Fast Food</p>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="badge bg-success">4.5 ★</span>
-                <span class="text-muted">₹50 for two</span>
-                <span class="text-muted">2.1 km</span>
-              </div>
-              <a href="https://maps.app.goo.gl/JDo6YNduGAtKt1A77" target="_blank"
-                class="btn btn-primary w-100 rounded-pill direction-btn">Get Directions</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="col-md-4">
-          <div class="card explore-card shadow border-0 rounded-4">
-            <div class="img-container">
-              <img src="./assets/ombajrangmisal.jpg" alt="Om Bajrang Misal  " class="card-img-top">
-            </div>
-            <div class="card-body">
-              <h5 class="fw-bold">Om Bajrang Misal</h5>
-              <p class="text-muted mb-2">Snacks • Spicy Bites</p>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="badge bg-success">4.7 ★</span>
-                <span class="text-muted">₹120</span>
-                <span class="text-muted">1.5 km</span>
-              </div>
-              <a href="https://maps.app.goo.gl/RAvYjpbC7Le1u8Z2A" target="_blank"
-                class="btn btn-primary w-100 rounded-pill direction-btn">Get Directions</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-md-4">
-          <div class="card explore-card shadow border-0 rounded-4">
-            <div class="img-container">
-              <img src="./assets/samarthjuice.jpg" alt="Samarth Juice Centre" class="card-img-top">
-            </div>
-            <div class="card-body">
-              <h5 class="fw-bold">Samarth Juice Centre</h5>
-              <p class="text-muted mb-2">Drinks & Refreshments</p>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="badge bg-success">4.3 ★</span>
-                <span class="text-muted">₹50 - ₹100</span>
-                <span class="text-muted">3.0 km</span>
-              </div>
-              <a href="https://maps.app.goo.gl/nqWVviVzunhGq9S78" target="_blank"
-                class="btn btn-primary w-100 rounded-pill direction-btn">Get Directions</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="col-md-4">
-          <div class="card explore-card shadow border-0 rounded-4">
-            <div class="img-container">
-              <img src="./assets/rock&roll.jpg" alt="Samosa" class="card-img-top">
-            </div>
-            <div class="card-body">
-              <h5 class="fw-bold">Bhole's Rock and Rolls</h5>
-              <p class="text-muted mb-2">Snacks • Rolls</p>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="badge bg-success">4.6 ★</span>
-                <span class="text-muted">₹70 for two</span>
-                <span class="text-muted">2.8 km</span>
-              </div>
-              <a href="https://maps.app.goo.gl/u9BewnkUGcmuJpudA" target="_blank"
-                class="btn btn-primary w-100 rounded-pill direction-btn">Get Directions</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="col-md-4">
-          <div class="card explore-card shadow border-0 rounded-4">
-            <div class="img-container">
-              <img src="./assets/maulisamosa.jpg" alt="Mauli Kadhi Samosa" class="card-img-top">
-            </div>
-            <div class="card-body">
-              <h5 class="fw-bold">Mauli Kadhi Samosa</h5>
-              <p class="text-muted mb-2">• Sweet-Spicy</p>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="badge bg-success">4.4 ★</span>
-                <span class="text-muted">₹55 for two</span>
-                <span class="text-muted">1.2 km</span>
-              </div>
-              <a href="https://maps.app.goo.gl/wbEY5YWFcoPojZgW6" target="_blank"
-                class="btn btn-primary w-100 rounded-pill direction-btn">Get Directions</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="col-md-4">
-          <div class="card explore-card shadow border-0 rounded-4">
-            <div class="img-container">
-              <img src="./assets/saichines.jpg" alt="Sai Chinese Corner" class="card-img-top">
-            </div>
-            <div class="card-body">
-              <h5 class="fw-bold">Sai Chinese Corner</h5>
-              <p class="text-muted mb-2">Chinese • Snacks</p>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="badge bg-success">4.8 ★</span>
-                <span class="text-muted">₹80 for two</span>
-                <span class="text-muted">3.5 km</span>
-              </div>
-              <a href="https://maps.app.goo.gl/CNgREbie6Mdpsbys8" target="_blank"
-                class="btn btn-primary w-100 rounded-pill direction-btn">Get Directions</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Dynamic Vendor Stalls Section -->
-        <hr class="my-5">
-        <h3 class="text-center mb-4">✨ Recently Added Stalls by Vendors ✨</h3>
-        <div id="vendorStalls" class="row g-4"></div>
-
-        <script src="./explore.js"></script>
-
-
+      <!-- 👤 Auth buttons / user info -->
+      <div id="authArea" class="d-none d-md-block">
+        <a href="./login.html" class="btn btn-outline-dark me-2">Log in</a>
+        <a href="./signup.html" class="btn btn-dark">Sign up</a>
       </div>
     </div>
+  </nav>
+
+  <!-- Explore Section -->
+  <div class="container my-5">
+    <div id="vendorStalls" class="row g-4"></div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="explore.js"></script>
+
+  <!-- 👤 Auth UI -->
+  <script>
+    (function () {
+      function renderAuthArea() {
+        const el = document.getElementById('authArea');
+        if (!el || !window.SnackAuth) return;
+        const user = SnackAuth.getCurrentUser();
+
+        if (user) {
+          el.innerHTML = `
+            <span class="me-2 text-dark">Hi, <strong>${user.displayName || user.email}</strong></span>
+            <button id="logoutBtn" class="btn btn-outline-dark btn-sm">Logout</button>
+          `;
+          document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await SnackAuth.signOut();
+            window.location.reload();
+          });
+        } else {
+          el.innerHTML = `
+            <a href="./login.html" class="btn btn-outline-dark me-2">Log in</a>
+            <a href="./signup.html" class="btn btn-dark">Sign up</a>
+          `;
+        }
+      }
+      renderAuthArea();
+      document.addEventListener('auth-changed', renderAuthArea);
+    })();
+  </script>
 </body>
 
 </html>
