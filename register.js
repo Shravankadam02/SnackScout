@@ -1,46 +1,60 @@
+const user = SnackAuth.getCurrentUser();
+
+if (!user) {
+  alert('Please login first.');
+  window.location.href = 'login.html';
+} else if (user.role !== 'vendor' && user.role !== 'admin') {
+  alert('Only vendors or admins can access this page.');
+  window.location.href = 'index.html';
+}
+
 // Handle Stall Registration Form
-document.getElementById('stallForm').addEventListener('submit', function (e) {
-  e.preventDefault();
+document.getElementById("stallForm").addEventListener("submit", function (e) {
+  e.preventDefault(); // Stop page reload
 
-  const fileInput = document.getElementById('photo');
-  const reader = new FileReader();
+  const stallName = document.getElementById("stallName").value.trim();
+  const ownerName = document.getElementById("ownerName").value.trim();
+  const foodType = document.getElementById("foodType").value.trim();
+  const location = document.getElementById("location").value.trim();
+  const contact = document.getElementById("contact").value.trim();
+  const photoInput = document.getElementById("photo");
 
-  // When file is read (converted to Base64)
-  reader.onload = function () {
-    const imageUrl = reader.result || ''; // base64 string or empty if no image
+  // Validation
+  if (!stallName || !ownerName || !foodType || !location || !contact) {
+    alert("Please fill out all fields before submitting!");
+    return;
+  }
 
-    // Collect form data
-    const stall = {
-      name: document.getElementById('stallName').value,
-      owner: document.getElementById('ownerName').value,
-      type: document.getElementById('foodType').value,
-      location: document.getElementById('location').value,
-      contact: document.getElementById('contact').value,
-      photo: imageUrl // base64 string
+  // Convert image to Base64
+  const file = photoInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      saveStall(event.target.result);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    saveStall("");
+  }
+
+  // Save Stall
+  function saveStall(imageData) {
+    const stalls = JSON.parse(localStorage.getItem("snackscout_stalls_v1")) || [];
+
+    const newStall = {
+      name: stallName,
+      owner: ownerName,
+      foodType,
+      location,
+      contact,
+      image: imageData,
+      addedBy: user.email,
     };
 
-    // Retrieve existing stalls (if any)
-    let stalls = JSON.parse(localStorage.getItem('stalls')) || [];
-    stalls.push(stall);
+    stalls.push(newStall);
+    localStorage.setItem("snackscout_stalls_v1", JSON.stringify(stalls));
 
-    // Save back to localStorage
-    localStorage.setItem('stalls', JSON.stringify(stalls));
-
-    // Confirmation alert
-    alert('✅ Stall added successfully!');
-
-    // Reset form
-    document.getElementById('stallForm').reset();
-
-    // Redirect to Explore page
-    window.location.href = 'explore.html';
-  };
-
-  // Read the image file if selected
-  if (fileInput.files.length > 0) {
-    reader.readAsDataURL(fileInput.files[0]); // ✅ Convert image to Base64
-  } else {
-    // If no file uploaded, still proceed
-    reader.onload();
+    alert("✅ Stall registered successfully!");
+    window.location.href = "explore.html";
   }
 });
