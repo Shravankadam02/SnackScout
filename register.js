@@ -40,6 +40,7 @@ document.getElementById("stallForm").addEventListener("submit", function (e) {
   // Save Stall
   function saveStall(imageData) {
     const stalls = JSON.parse(localStorage.getItem("snackscout_stalls_v1")) || [];
+    const mapsLink = document.getElementById("mapsLink").value.trim();
 
     const newStall = {
       name: stallName,
@@ -48,6 +49,7 @@ document.getElementById("stallForm").addEventListener("submit", function (e) {
       location,
       contact,
       image: imageData,
+      mapsLink: mapsLink || "",
       addedBy: user.email,
     };
 
