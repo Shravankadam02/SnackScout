@@ -3,12 +3,12 @@ console.log("✅ explore.js loaded");
 // 🧭 Default Stalls (Static)
 const defaultStalls = [
   {
-    name: "Zatka Panipuri",
+    name: "Shri Saptshruingi Misal Point",
     foodType: "Street Snacks • Fast Food",
-    location: "Panchavati, Nashik",
+    location: "Nashik Road, Nashik",
     contact: "—",
-    image: "./assets/zatkapanipuri.jpg",
-    mapsLink: "https://maps.app.goo.gl/JDo6YNduGAtKt1A77"
+    image: "./assets/shraptashungi misal.jpg",
+    mapsLink: "https://share.google/4jo4ShfjQHyi13mZe"
   },
   {
     name: "Om Bajrang Misal",
@@ -19,12 +19,12 @@ const defaultStalls = [
     mapsLink: "https://maps.app.goo.gl/RAvYjpbC7Le1u8Z2A"
   },
   {
-    name: "Samarth Juice Centre",
-    foodType: "Drinks & Refreshments",
-    location: "Nashik Road",
+    name: "Harbhole Dabeli Corner",
+    foodType: "Dabeli",
+    location: "Rk",
     contact: "—",
-    image: "./assets/samarthjuice.jpg",
-    mapsLink: "https://maps.app.goo.gl/nqWVviVzunhGq9S78"
+    image: "./assets/Harbhole dabeli.jpg",
+    mapsLink: "https://share.google/bD0TmT2u1yDtaow6k"
   },
   {
     name: "Bhole's Rock and Rolls",
